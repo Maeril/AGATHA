@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/01 01:13:34 by myener            #+#    #+#              #
-#    Updated: 2020/08/18 21:47:09 by myener           ###   ########.fr        #
+#    Updated: 2020/08/25 07:58:44 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.optimizers import Adam
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
-from smallervggnet.smallervggnet import SmallerVGGNet
+from vggnet.vggnet import SmallerVGGNet
 from imutils import paths
 import matplotlib.pyplot as plt
 import numpy as np
