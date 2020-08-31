@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/01 01:13:34 by myener            #+#    #+#              #
-#    Updated: 2020/08/25 07:58:44 by myener           ###   ########.fr        #
+#    Updated: 2020/08/31 15:39:42 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ lb = LabelBinarizer()
 labels = lb.fit_transform(labels)
 # Partition the data into training and testing splits using 80% of
 # the data for training and the remaining 20% for testing
-(trainX, testX, trainY, testY) = train_test_split(data,
+(x_train, x_test, y_train, y_test) = train_test_split(data,
 	labels, test_size=0.2, random_state=42)
 
 # Construct the image generator for data augmentation
@@ -97,9 +97,9 @@ model.compile(loss="categorical_crossentropy", optimizer=opt,
 # Train the network
 print("[INFO] training network...")
 H = model.fit(
-	x=aug.flow(trainX, trainY, batch_size=BS),
-	validation_data=(testX, testY),
-	steps_per_epoch=len(trainX) // BS,
+	x=aug.flow(x_train, y_train, batch_size=BS),
+	validation_data=(x_test, y_test),
+	steps_per_epoch=len(x_train) // BS,
 	epochs=EPOCHS, verbose=1)
 
 # Save the model
