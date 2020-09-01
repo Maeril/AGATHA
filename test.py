@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    classify.py                                        :+:      :+:    :+:    #
+#    test.py                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/02 04:12:23 by myener            #+#    #+#              #
-#    Updated: 2020/09/01 19:05:43 by myener           ###   ########.fr        #
+#    Updated: 2020/09/01 21:50:28 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,14 @@ import cv2
 import os
 
 # Construct the argument parser and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-m", "--model", required=True,
+parser = argparse.ArgumentParser()
+parser.add_argument("-m", "--model", required=True,
 	help="path to trained model")
-ap.add_argument("-l", "--labelbin", required=True,
+parser.add_argument("-l", "--labelbin", required=True,
 	help="path to label binarizer")
-ap.add_argument("-i", "--image", required=True,
+parser.add_argument("-i", "--image", required=True,
 	help="path to input image")
-args = vars(ap.parse_args())
+args = vars(parser.parse_args())
 
 # Load the image
 image = cv2.imread(args["image"])

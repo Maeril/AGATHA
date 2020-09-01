@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/01 01:13:34 by myener            #+#    #+#              #
-#    Updated: 2020/09/01 19:05:16 by myener           ###   ########.fr        #
+#    Updated: 2020/09/01 21:20:41 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.optimizers import Adam
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
-from vggnet.vggnet import SmallerVGGNet
+from vggnet.vggnet import VGGNet
 from imutils import paths
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,21 +31,21 @@ import cv2
 import os
 
 # Construct the argument parsing
-ap = argparse.ArgumentParser()
-ap.add_argument("-d", "--dataset", required=True,
+parser = argparse.ArgumentParser()
+parser.add_argument("-d", "--dataset", required=True,
 	help="path to input dataset (i.e., directory of images)")
-ap.add_argument("-m", "--model", required=True,
+parser.add_argument("-m", "--model", required=True,
 	help="path to output model")
-ap.add_argument("-l", "--labelbin", required=True,
+parser.add_argument("-l", "--labelbin", required=True,
 	help="path to output label binarizer")
-ap.add_argument("-p", "--plot", type=str, default="plot.png",
+parser.add_argument("-p", "--plot", type=str, default="plot.png",
 	help="path to output accuracy/loss plot")
-args = vars(ap.parse_args())
+args = vars(parser.parse_args())
 
 # Initialize the number of epochs to train for, initial learning rate,
 # batch size, and image dimensions
 EPOCHS = 100
-INIT_LR = 1e-3
+INIT_LR = 1e-3 # Basically just another way to write O.OO1 (aka 1 * 10^(-3))
 BS = 32
 IMAGE_DIMS = (96, 96, 3)
 # Initialize the data and labels
@@ -96,16 +96,16 @@ model.compile(loss="categorical_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 # Train the network
 print("[INFO] training network...")
-H = model.fit(x=aug.flow(x_train, y_train, batch_size=BS),
+Hist = model.fit(x=aug.flow(x_train, y_train, batch_size=BS),
 	validation_data=(x_test, y_test),
 	steps_per_epoch=len(x_train) // BS,
 	epochs=EPOCHS, verbose=1)
 
 # Save the model
-print("[INFO] serializing network...")
-model.save(args["model"], save_format="h5")
+print("[INFO] saving network...")
+model.save(args["model"], save_format="tf")
 # save the label binarizer to disk
-print("[INFO] serializing label binarizer...")
+print("[INFO] saving label binarizer...")
 f = open(args["labelbin"], "wb") #wb stands for "write binary"
 f.write(pickle.dumps(lb))
 f.close()
@@ -114,10 +114,10 @@ f.close()
 plt.style.use("ggplot")
 plt.figure()
 N = EPOCHS
-plt.plot(np.arange(0, N), H.history["loss"], label="train_loss")
-plt.plot(np.arange(0, N), H.history["val_loss"], label="val_loss")
-plt.plot(np.arange(0, N), H.history["accuracy"], label="train_acc")
-plt.plot(np.arange(0, N), H.history["val_accuracy"], label="val_acc")
+plt.plot(np.arange(0, N), Hist.history["loss"], label="train_loss")
+plt.plot(np.arange(0, N), Hist.history["val_loss"], label="val_loss")
+plt.plot(np.arange(0, N), Hist.history["accuracy"], label="train_acc")
+plt.plot(np.arange(0, N), Hist.history["val_accuracy"], label="val_acc")
 plt.title("Training Loss and Accuracy")
 plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")

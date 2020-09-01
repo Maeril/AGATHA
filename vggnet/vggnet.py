@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/31 22:24:52 by myener            #+#    #+#              #
-#    Updated: 2020/08/25 08:00:41 by myener           ###   ########.fr        #
+#    Updated: 2020/09/01 19:18:11 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ from tensorflow.keras.layers import Dropout
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import backend as K
 
-class SmallerVGGNet:
+class VGGNet:
 	@staticmethod
 	def build(width, height, depth, classes):
 		model = Sequential()
@@ -53,7 +53,7 @@ class SmallerVGGNet:
 		model.add(BatchNormalization(axis=chanDim))
 		model.add(MaxPooling2D(pool_size=(2, 2)))
 		model.add(Dropout(0.25))
-		# first (and only) set of FC => RELU layers
+		# first (and only) set of Dense => RELU layers
 		model.add(Flatten())
 		model.add(Dense(1024))
 		model.add(Activation("relu"))
