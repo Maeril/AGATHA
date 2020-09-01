@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/02 04:12:23 by myener            #+#    #+#              #
-#    Updated: 2020/08/18 21:47:09 by myener           ###   ########.fr        #
+#    Updated: 2020/09/01 18:15:28 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,7 @@ proba = model.predict(image)[0]
 idx = np.argmax(proba)
 label = lb.classes_[idx]
 
-# we'll mark our prediction as "correct" of the input image filename
-# contains the predicted label text (obviously this makes the
-# assumption that you have named your testing image files this way)
+# Prediction is "correct" if image filename contains predicted label text
 filename = args["image"][args["image"].rfind(os.path.sep) + 1:]
 correct = "correct" if filename.rfind(label) != -1 else "incorrect"
 # build the label and draw the label on the image

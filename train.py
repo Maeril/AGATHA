@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/01 01:13:34 by myener            #+#    #+#              #
-#    Updated: 2020/08/31 15:39:42 by myener           ###   ########.fr        #
+#    Updated: 2020/08/31 16:39:57 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,8 +96,7 @@ model.compile(loss="categorical_crossentropy", optimizer=opt,
 	metrics=["accuracy"])
 # Train the network
 print("[INFO] training network...")
-H = model.fit(
-	x=aug.flow(x_train, y_train, batch_size=BS),
+H = model.fit(x=aug.flow(x_train, y_train, batch_size=BS),
 	validation_data=(x_test, y_test),
 	steps_per_epoch=len(x_train) // BS,
 	epochs=EPOCHS, verbose=1)
