@@ -6,7 +6,7 @@
 #    By: myener <myener@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/01 01:13:34 by myener            #+#    #+#              #
-#    Updated: 2020/08/31 16:39:57 by myener           ###   ########.fr        #
+#    Updated: 2020/09/01 19:05:16 by myener           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,10 +48,10 @@ EPOCHS = 100
 INIT_LR = 1e-3
 BS = 32
 IMAGE_DIMS = (96, 96, 3)
-# initialize the data and labels
+# Initialize the data and labels
 data = []
 labels = []
-# grab the image paths and randomly shuffle them
+# Grab the image paths and randomly shuffle them
 print("[INFO] loading images...")
 imagePaths = sorted(list(paths.list_images(args["dataset"])))
 random.seed(42)
